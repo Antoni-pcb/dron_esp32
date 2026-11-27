@@ -18,7 +18,7 @@ float clamp(float v, float min, float max){
 }
 
 Mixer::Mixer(Control control):
-output_{{0.0, 0.0, 0.0, 0.0}}, saturation_{false}, control_{control},
+output_{{0.0, 0.0, 0.0, 0.0}}, saturation_{false}, control_{control}, init_{false},
 mix_{{
     {1.0, -1.0, 1.0, -1.0},
     {1.0, 1.0, -1.0, -1.0},
@@ -26,12 +26,13 @@ mix_{{
 }} {}
 
 void Mixer::begin(float length, float width){
-    if(length <= 0 || width <= 0){
+    if( !(length > 0 && width > 0)){
         throw std::invalid_argument("input proper dimensions");
     }
     float m{std::max(length, width)};
     for(float& elem : mix_[PITCH]){ elem *= length / m; }
     for(float& elem : mix_[ROLL]){ elem *= width / m; }
+    init_ = true;
 }
 
 void Mixer::steer() {

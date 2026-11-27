@@ -1,6 +1,5 @@
 #ifndef MIX
 #define MIX
-#include<cmath>
 #include<array>
 
 struct Control{
@@ -18,14 +17,17 @@ enum Angle{
 
 class Mixer{
 public:
-    Mixer(float length, float width, Control control);
-    bool get_saturation() { return saturation_; }
+    Mixer(Control control);
+    void begin(float length, float width);
+    const bool& get_saturation() const { return saturation_; }
     const std::array<float, 4>& get_output() const { return output_; }
+    bool get_init() const { return init_; }
     void steer();
 private:
-    const std::array<std::array<float, 4>, 3> mix_;
+    std::array<std::array<float, 4>, 3> mix_;
     std::array<float, 4> output_;
     bool saturation_;
+    bool init_;
     Control control_;
 };
 
