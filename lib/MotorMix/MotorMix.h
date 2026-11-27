@@ -19,12 +19,12 @@ enum Angle{
 class Mixer{
 public:
     Mixer(float length, float width, Control control);
-    void set_motor_pins(std::array<int, 4> pins) { motor_pins_ = pins; }
     bool get_saturation() { return saturation_; }
+    const std::array<float, 4>& get_output() const { return output_; }
     void steer();
 private:
     const std::array<std::array<float, 4>, 3> mix_;
-    std::array<int, 4> motor_pins_;
+    std::array<float, 4> output_;
     bool saturation_;
     Control control_;
 };
