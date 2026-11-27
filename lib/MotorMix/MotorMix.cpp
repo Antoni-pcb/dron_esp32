@@ -1,15 +1,15 @@
 #include"MotorMix.h"
 
-float get_range (float list[4], float& min, float& max){
+float get_range (std::array<float, 4> list, float& min, float& max){
   min = list[0];
   max = list[0];
 
-  for(int i = 1; i < 4; i++){
-    if(list[i] < min){
-      min = list[i];
+  for(float elem : list){
+    if(elem < min){
+      min = elem;
     }
-    if(list[i] > max){
-      max = list[i];
+    if(elem > max){
+      max = elem;
     }
   }
   return max - min;
